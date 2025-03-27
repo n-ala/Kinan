@@ -2,9 +2,9 @@ const http = require('http');
 const url = require('url');
 
 const appointments = [
-    { id: 1, patientId: 101, date: '2025-04-10', time: '10:00 AM' },
-    { id: 2, patientId: 102, date: '2025-04-11', time: '2:00 PM' },
-    { id: 3, patientId: 103, date: '2025-04-12', time: '9:00 AM' }
+    { id: 1, nationalId: '123456789', date: '2025-04-10', time: '10:00 AM' },
+    { id: 2, nationalId: '987654321', date: '2025-04-11', time: '2:00 PM' },
+    { id: 3, nationalId: '456789123', date: '2025-04-12', time: '9:00 AM' }
 ];
 
 // Create an HTTP server
@@ -30,16 +30,16 @@ const server = http.createServer((req, res) => {
         });
 
         req.on('end', () => {
-            const { patientId, date, time } = JSON.parse(body);
+            const { nationalId, date, time } = JSON.parse(body);
 
-            if (!patientId || !date || !time) {
+            if (!nationalId || !date || !time) {
                 res.statusCode = 400;
                 return res.end(JSON.stringify({ error: "Missing required fields" }));
             }
 
             const newAppointment = {
                 id: appointments.length + 1,
-                patientId,
+                nationalId,
                 date,
                 time
             };
@@ -47,7 +47,7 @@ const server = http.createServer((req, res) => {
             appointments.push(newAppointment);
 
             res.statusCode = 200;
-            res.end(JSON.stringify({ message: "Appointment scheduled successfully", appointmentId: newAppointment.id }));
+            res.end(JSON.stringify({ message: "Villa viewing appointment scheduled successfully", appointmentId: newAppointment.id }));
         });
     }
     // Handle unknown routes
@@ -58,7 +58,7 @@ const server = http.createServer((req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
