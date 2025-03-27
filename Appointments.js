@@ -38,7 +38,7 @@ const server = http.createServer((req, res) => {
                 return res.end(JSON.stringify({ error: "Missing required fields" }));
             }
 
-            const appointment = appointments.find(app => app.id === appointmentId);
+            const appointment = appointments.find(app => parseInt(app.id) === parseInt(appointmentId));
 
             if (!appointment) {
                 res.statusCode = 404;
