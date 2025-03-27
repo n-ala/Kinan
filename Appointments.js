@@ -2,9 +2,9 @@ const http = require('http');
 const url = require('url');
 
 const appointments = [
-    { id: 1, date: '2025-04-10', time: '10:00 AM', dateArabic: '١٠ أبريل ٢٠٢٥', timeArabic: '١٠:٠٠ صباحًا', nationalId: null },
-    { id: 2, date: '2025-04-11', time: '2:00 PM', dateArabic: '١١ أبريل ٢٠٢٥', timeArabic: '٢:٠٠ مساءً', nationalId: null },
-    { id: 3, date: '2025-04-12', time: '9:00 AM', dateArabic: '١٢ أبريل ٢٠٢٥', timeArabic: '٩:٠٠ صباحًا', nationalId: null }
+    { id: 1, date: '10 Apr 2025', time: '10 AM', dateArabic: '١٠ أبريل ٢٠٢٥', timeArabic: '١٠ ص', nationalId: null },
+    { id: 2, date: '11 Apr 2025', time: '2 PM', dateArabic: '١١ أبريل ٢٠٢٥', timeArabic: '٢ م', nationalId: null },
+    { id: 3, date: '12 Apr 2025', time: '9 AM', dateArabic: '١٢ أبريل ٢٠٢٥', timeArabic: '٩ ص', nationalId: null }
 ];
 
 // Create an HTTP server
