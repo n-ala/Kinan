@@ -122,7 +122,6 @@ const server = http.createServer((req, res) => {
         });
     }
 
-// Handle GET /api/appointments/user/:nationalId to retrieve appointments booked by a specific user
 else if (pathname.startsWith('/api/appointments/user/') && method === 'GET') {
     const nationalId = pathname.split('/')[4];
 
@@ -131,11 +130,21 @@ else if (pathname.startsWith('/api/appointments/user/') && method === 'GET') {
         return res.end(JSON.stringify({ error: "National ID is required" }));
     }
 
-    const userAppointments = appointments.filter(app => parseInt(app.nationalId) === parseInt(nationalId));
+    const today = new Date();
+
+    const userAppointments = appointments.filter(app => {
+        if (parseInt(app.nationalId) !== parseInt(nationalId)) return false;
+
+        const dateParts = app.date.split(' '); // e.g., ['10', 'Apr', '2025']
+        const parsedDate = new Date(`${dateParts[1]} ${dateParts[0]}, ${dateParts[2]}`);
+
+        return parsedDate >= today;
+    });
 
     res.statusCode = 200;
     res.end(JSON.stringify(userAppointments));
 }
+
 
        
     // Handle unknown routes
