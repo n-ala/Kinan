@@ -121,6 +121,23 @@ const server = http.createServer((req, res) => {
             return res.end(JSON.stringify({ message: "Appointment rescheduled successfully", newAppointment }));
         });
     }
+
+// Handle GET /api/appointments/user/:nationalId to retrieve appointments booked by a specific user
+else if (pathname.startsWith('/api/appointments/user/') && method === 'GET') {
+    const nationalId = pathname.split('/')[4];
+
+    if (!nationalId) {
+        res.statusCode = 400;
+        return res.end(JSON.stringify({ error: "National ID is required" }));
+    }
+
+    const userAppointments = appointments.filter(app => parseInt(app.nationalId) === parseInt(nationalId));
+
+    res.statusCode = 200;
+    res.end(JSON.stringify(userAppointments));
+}
+
+       
     // Handle unknown routes
     else {
         res.statusCode = 404;
